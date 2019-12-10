@@ -152,6 +152,7 @@ suite("Functional Tests", function() {
           .send({ surname: "Colombo" })
           .end(function(err, res) {
             /** your tests here **/
+            // assert.fail(); // remove this after adding tests
             assert.equal(res.status, 200);
             assert.equal(res.type, "application/json");
             assert.equal(res.body.name, "Cristoforo");
@@ -177,6 +178,8 @@ suite("Functional Tests", function() {
           });
         /** place your tests inside the callback **/
 
+        // assert.fail(); // remove this after adding tests
+
         done();
       });
     });
@@ -197,7 +200,7 @@ suite("Functional Tests", function() {
 
   // On Gomix we'll use this setting
   /** ### Copy your project's url here  ### **/
-  Browser.site = "https://sincere-cone.gomix.me";
+  Browser.site = "https://zeb-fcc-chai-project.glitch.me";
 
   // If you are testing on a local environment replace the line above  with
   // Browser.localhost('example.com', (process.env.PORT || 3000));
@@ -237,20 +240,22 @@ suite("Functional Tests", function() {
 
       // ### EXAMPLE ###
       test('#example - submit the input "surname" : "Polo"', function(done) {
-        browser.fill("surname", "Polo").pressButton("submit", function() {
-          // pressButton is ## Async ##.
-          // It waits for the ajax call to complete...
+        browser.fill("surname", "Polo").then(() => {
+          browser.pressButton("submit", () => {
+            // pressButton is ## Async ##.
+            // It waits for the ajax call to complete...
 
-          // assert that status is OK 200
-          browser.assert.success();
-          // assert that the text inside the element 'span#name' is 'Marco'
-          browser.assert.text("span#name", "Marco");
-          // assert that the text inside the element 'span#surname' is 'Polo'
-          browser.assert.text("span#surname", "Polo");
-          // assert that the element(s) 'span#dates' exist and their count is 1
-          browser.assert.element("span#dates", 1);
+            // assert that status is OK 200
+            browser.assert.success();
+            // assert that the text inside the element 'span#name' is 'Marco'
+            browser.assert.text("span#name", "Marco");
+            // assert that the text inside the element 'span#surname' is 'Polo'
+            browser.assert.text("span#surname", "Polo");
+            // assert that the element(s) 'span#dates' exist and their count is 1
+            browser.assert.element("span#dates", 1);
 
-          done(); // It's an async test, so we have to call 'done()''
+            done(); // It's an async test, so we have to call 'done()''
+          });
         });
       });
 
@@ -265,35 +270,45 @@ suite("Functional Tests", function() {
         // assert that the text inside the element 'span#name' is 'Cristoforo'
         // assert that the text inside the element 'span#surname' is 'Colombo'
         // assert that the element(s) 'span#dates' exist and their count is 1
-        browser.fill("surname", "Colombo").pressButton("submit", function() {
-          /** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
+        browser.fill("surname", "Colombo").then(() => {
+          browser.pressButton("submit", () => {
+            /** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
 
-          // pressButton is Async.  Waits for the ajax call to complete...
+            // pressButton is Async.  Waits for the ajax call to complete...
 
-          // assert that status is OK 200
+            // assert that status is OK 200
+            browser.assert.success();
+            // assert that the text inside the element 'span#name' is 'Cristoforo'
+            browser.assert.text("span#name", "Cristoforo");
+            // assert that the text inside the element 'span#surname' is 'Colombo'
+            browser.assert.text("span#surname", "Colombo");
+            // assert that the element(s) 'span#dates' exist and their count is 1
+            // This should be "elements", not "element", but FCC's tests are flawed.
+            // https://zombie.js.org/#assertelementselection-message
+            browser.assert.element("span#dates", 1);
 
-          // assert that the text inside the element 'span#name' is 'Cristoforo'
-
-          // assert that the text inside the element 'span#surname' is 'Colombo'
-
-          // assert that the element(s) 'span#dates' exist and their count is 1
-
-          assert.fail();
-
-          done(); // It's an async test, so we have to call 'done()''
+            done(); // It's an async test, so we have to call 'done()''
+          });
         });
-        //
       });
 
       /** Try it again... No help this time **/
       test('submit "surname" : "Vespucci" - write your e2e test...', function(done) {
         // fill the form, and submit.
-        // assert that status is OK 200
-        // assert that the text inside the element 'span#name' is 'Amerigo'
-        // assert that the text inside the element 'span#surname' is 'Vespucci'
-        // assert that the element(s) 'span#dates' exist and their count is 1
-        assert.fail();
-        done();
+        browser.fill("surname", "Vespucci").then(() => {
+          browser.pressButton("submit", () => {
+            // assert that status is OK 200
+            browser.assert.success();
+            // assert that the text inside the element 'span#name' is 'Amerigo'
+            browser.assert.text("span#name", "Amerigo");
+            // assert that the text inside the element 'span#surname' is 'Vespucci'
+            browser.assert.text("span#surname", "Vespucci");
+            // assert that the element(s) 'span#dates' exist and their count is 1
+            browser.assert.element("span#dates", 1);
+
+            done();
+          });
+        });
       });
     });
   });
