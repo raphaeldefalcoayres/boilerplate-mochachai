@@ -153,6 +153,11 @@ suite("Functional Tests", function() {
           .end(function(err, res) {
             /** your tests here **/
             assert.equal(res.status, 200, "response status should be 200");
+            assert.equal(
+              res.type,
+              "application/json",
+              "Response should be json"
+            );
 
             done(); // Never forget the 'done()' callback...
           });
