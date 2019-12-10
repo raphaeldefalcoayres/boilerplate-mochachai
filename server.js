@@ -16,7 +16,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/hello", function(req, res) {
   var name = req.query.name || "Guest";
-  res.type("txt").send("hello " + name);
+  res.type("txt").send("Hello " + name);
 });
 
 var travellers = function(req, res) {
