@@ -65,7 +65,7 @@ suite("Functional Tests", function() {
             // Please follow the order -status, -text. We rely on that in our tests.
             // It should respond 'Hello Guest'
             assert.equal(res.status, 200);
-            assert.equal(res.text, "Hello Guest");
+            assert.equal(res.text, "hello Guest");
             done(); // Always call the 'done()' callback when finished.
           });
       });
