@@ -98,8 +98,11 @@ suite("Functional Tests", function() {
             // Your tests here.
             // Replace assert.fail(). Make the test pass.
             // Test the status and the text response. Follow the test order like above.
-            assert.fail(res.status, 200);
-            assert.fail(res.text, "hello xy_z" /** <==  Put your name here **/);
+            assert.equal(res.status, 200);
+            assert.equal(
+              res.text,
+              "hello xy_z" /** <==  Put your name here **/
+            );
             done(); // Always call the 'done()' callback when finished.
           });
       });
