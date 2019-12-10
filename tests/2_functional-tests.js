@@ -149,10 +149,10 @@ suite("Functional Tests", function() {
           .request(server)
           .put("/travellers")
           /** send {surname: 'Colombo'} here **/
-          // .send({...})
+          .send({ surname: "Colombo" })
           .end(function(err, res) {
             /** your tests here **/
-            assert.fail(); // remove this after adding tests
+            assert.equal(res.status, 200, "response status should be 200");
 
             done(); // Never forget the 'done()' callback...
           });
