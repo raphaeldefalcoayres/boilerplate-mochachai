@@ -148,7 +148,7 @@ suite("Functional Tests", function() {
         chai
           .request(server)
           .put("/travellers")
-          .send({ name: "Cristoforo", surname: "Colombo" })
+          .send({ surname: "Colombo" })
           .end(function(err, res) {
             /** your tests here **/
             assert.equal(res.status, 200, "response status should be 200");
