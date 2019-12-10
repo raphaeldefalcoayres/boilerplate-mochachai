@@ -161,6 +161,11 @@ suite("Functional Tests", function() {
             // res.body contains the response parsed as a JS object, when appropriate
             // (i.e the response type is JSON)
             assert.equal(
+              res.body.name,
+              "Cristoforo",
+              'res.body.surname should be "Cristoforo"'
+            );
+            assert.equal(
               res.body.surname,
               "Colombo",
               'res.body.surname should be "Colombo"'
