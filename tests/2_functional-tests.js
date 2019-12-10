@@ -153,8 +153,13 @@ suite("Functional Tests", function() {
           .end(function(err, res) {
             /** your tests here **/
             // assert.fail(); // remove this after adding tests
+            console.log(res);
             assert.equal(res.status, 200);
-            assert.equal(res.type, "application/json");
+            assert.equal(
+              res.type,
+              "application/json",
+              "Response should be json"
+            );
             assert.equal(res.body.name, "Cristoforo");
             assert.equal(res.body.surname, "Colombo");
 
