@@ -1,20 +1,20 @@
-var chai = require("chai");
+var chai = require('chai');
 var assert = chai.assert;
 
-var server = require("../server"); /** import the Express app **/
+var server = require('../server'); /** import the Express app **/
 
-var chaiHttp = require("chai-http"); /** require the chai-http plugin **/
+var chaiHttp = require('chai-http'); /** require the chai-http plugin **/
 chai.use(chaiHttp); /** use the chai-http plugin **/
 
-suite("Functional Tests", function() {
+suite('Functional Tests', function() {
   // Mocha allows testing asyncronous operations.
   // There is a small (BIG) difference. Can you spot it ?
 
   // ### EXAMPLE ###
-  test("Asynchronous test #example", function(done) {
+  test('Asynchronous test #example', function(done) {
     /** <= Pass a callback to the test function **/
     setTimeout(function() {
-      assert.isOk("Async test !!");
+      assert.isOk('Async test !!');
       done(); /** Call 'done()' when the async operation is completed**/
     }, 500); // the function will be executed after 500ms
   });
@@ -22,27 +22,27 @@ suite("Functional Tests", function() {
   // NOTE: The tests having #example in their description string,
   // are instructional examples and are not parsed by our test analyser
 
-  suite("Integration tests with chai-http", function() {
+  suite('Integration tests with chai-http', function() {
     // We can test our API endpoints using a plugin, called chai-http.
     // Let's see how it works. And remember, API calls are asynchronous...
 
     // ### EXAMPLE ###
     suite('GET /hello?name=[name] => "hello [name]"', function() {
       // We send a name string in the url query string.
-      test("#example - ?name=John", function(done) {
+      test('#example - ?name=John', function(done) {
         // Don't forget the callback...
         chai
           .request(server) // 'server' is the Express App
-          .get("/hello?name=John") // http_method(url)
+          .get('/hello?name=John') // http_method(url)
           .end(function(err, res) {
             // Send the request. Pass a callback in
             // node style. `res` is the response object
             // res.status contains the status code
-            assert.equal(res.status, 200, "response status should be 200");
+            assert.equal(res.status, 200, 'response status should be 200');
             // res.text contains the response as a string
             assert.equal(
               res.text,
-              "hello John",
+              'hello John',
               'response should be "hello John"'
             );
             done();
@@ -53,11 +53,11 @@ suite("Functional Tests", function() {
        * Replace assert.fail(). Make the test pass. **/
 
       // If no name is passed, the endpoint responds with 'hello Guest'.
-      test("Test GET /hello with no name", function(done) {
+      test('Test GET /hello with no name', function(done) {
         // Don't forget the callback...
         chai
           .request(server) // 'server' is the Express App
-          .get("/hello") // http_method(url). NO NAME in the query !
+          .get('/hello') // http_method(url). NO NAME in the query !
           .end(function(err, res) {
             // res is the response object
 
@@ -65,17 +65,17 @@ suite("Functional Tests", function() {
             // Please follow the order -status, -text. We rely on that in our tests.
             // It should respond 'Hello Guest'
             assert.equal(res.status, 200);
-            assert.equal(res.text, "hello Guest");
+            assert.equal(res.text, 'hello Guest');
             done(); // Always call the 'done()' callback when finished.
           });
       });
 
       /**  Another one... **/
-      test("Test GET /hello with your name", function(done) {
+      test('Test GET /hello with your name', function(done) {
         // Don't forget the callback...
         chai
           .request(server) // 'server' is the Express App
-          .get("/hello?name=xy_z") /** <=== Put your name in the query **/
+          .get('/hello?name=xy_z') /** <=== Put your name in the query **/
           .end(function(err, res) {
             // res is the response object
 
@@ -85,7 +85,7 @@ suite("Functional Tests", function() {
             assert.equal(res.status, 200);
             assert.equal(
               res.text,
-              "hello xy_z" /** <==  Put your name here **/
+              'hello xy_z' /** <==  Put your name here **/
             );
             done(); // Always call the 'done()' callback when finished.
           });
@@ -101,32 +101,32 @@ suite("Functional Tests", function() {
     // see the server code for more details.
 
     // ### EXAMPLE ###
-    suite("PUT /travellers", function() {
+    suite('PUT /travellers', function() {
       test('#example - responds with appropriate JSON data when sending {surname: "Polo"}', function(done) {
         chai
           .request(server)
-          .put("/travellers") // note the PUT method
-          .send({ surname: "Polo" }) // attach the payload, encoded as JSON
+          .put('/travellers') // note the PUT method
+          .send({ surname: 'Polo' }) // attach the payload, encoded as JSON
           .end(function(err, res) {
             // Send the request. Pass a Node callback
 
-            assert.equal(res.status, 200, "response status should be 200");
+            assert.equal(res.status, 200, 'response status should be 200');
             assert.equal(
               res.type,
-              "application/json",
-              "Response should be json"
+              'application/json',
+              'Response should be json'
             );
 
             // res.body contains the response parsed as a JS object, when appropriate
             // (i.e the response type is JSON)
             assert.equal(
               res.body.name,
-              "Marco",
+              'Marco',
               'res.body.name should be "Marco"'
             );
             assert.equal(
               res.body.surname,
-              "Polo",
+              'Polo',
               'res.body.surname should be "Polo"'
             );
 
@@ -147,15 +147,15 @@ suite("Functional Tests", function() {
         // we setup the request for you...
         chai
           .request(server)
-          .put("/travellers")
+          .put('/travellers')
           /** send {surname: 'Colombo'} here **/
-          .send({ surname: "Colombo" })
+          .send({ surname: 'Colombo' })
           .end(function(err, res) {
             /** your tests here **/
             assert.equal(res.status, 200);
-            assert.equal(res.type, "application/json");
-            assert.equal(res.body.name, "Cristoforo");
-            assert.equal(res.body.surname, "Colombo");
+            assert.equal(res.type, 'application/json');
+            assert.equal(res.body.name, 'Cristoforo');
+            assert.equal(res.body.surname, 'Colombo');
 
             done(); // Never forget the 'done()' callback...
           });
@@ -167,15 +167,15 @@ suite("Functional Tests", function() {
         // we setup the request for you...
         chai
           .request(server)
-          .put("/travellers")
+          .put('/travellers')
           /** send {surname: 'da Verrazzano'} here **/
-          .send({ surname: "da Verrazzano" })
+          .send({ surname: 'da Verrazzano' })
           .end(function(err, res) {
             /** your tests here **/
             assert.equal(res.status, 200);
-            assert.equal(res.type, "application/json");
-            assert.equal(res.body.name, "Giovanni");
-            assert.equal(res.body.surname, "da Verrazzano");
+            assert.equal(res.type, 'application/json');
+            assert.equal(res.body.name, 'Giovanni');
+            assert.equal(res.body.surname, 'da Verrazzano');
 
             done(); // Never forget the 'done()' callback...
           });
@@ -194,16 +194,16 @@ suite("Functional Tests", function() {
   // additional binaries to be installed. This feature makes it usable in
   // an environment such as Gomix. There are many other (more powerful) options.
 
-  var Browser = require("zombie");
+  var Browser = require('zombie');
 
   // On Gomix we'll use this setting
   /** ### Copy your project's url here  ### **/
-  Browser.site = "https://sincere-cone.gomix.me";
+  Browser.site = 'https://sincere-cone.gomix.me';
 
   // If you are testing on a local environment replace the line above  with
   // Browser.localhost('example.com', (process.env.PORT || 3000));
 
-  suite("e2e Testing with Zombie.js", function() {
+  suite('e2e Testing with Zombie.js', function() {
     const browser = new Browser();
 
     // Mocha allows You to prepare the ground running some code
@@ -218,7 +218,7 @@ suite("Functional Tests", function() {
 
     suiteSetup(function(done) {
       // Remember, web interactions are asynchronous !!
-      return browser.visit("/", done); // Browser asynchronous operations take a callback
+      return browser.visit('/', done); // Browser asynchronous operations take a callback
     });
 
     suite('"Famous Italian Explorers" form', function() {
@@ -238,18 +238,18 @@ suite("Functional Tests", function() {
 
       // ### EXAMPLE ###
       test('#example - submit the input "surname" : "Polo"', function(done) {
-        browser.fill("surname", "Polo").pressButton("submit", function() {
+        browser.fill('surname', 'Polo').pressButton('submit', function() {
           // pressButton is ## Async ##.
           // It waits for the ajax call to complete...
 
           // assert that status is OK 200
           browser.assert.success();
           // assert that the text inside the element 'span#name' is 'Marco'
-          browser.assert.text("span#name", "Marco");
+          browser.assert.text('span#name', 'Marco');
           // assert that the text inside the element 'span#surname' is 'Polo'
-          browser.assert.text("span#surname", "Polo");
+          browser.assert.text('span#surname', 'Polo');
           // assert that the element(s) 'span#dates' exist and their count is 1
-          browser.assert.element("span#dates", 1);
+          browser.assert.element('span#dates', 1);
 
           done(); // It's an async test, so we have to call 'done()''
         });
@@ -266,7 +266,7 @@ suite("Functional Tests", function() {
         // assert that the text inside the element 'span#name' is 'Cristoforo'
         // assert that the text inside the element 'span#surname' is 'Colombo'
         // assert that the element(s) 'span#dates' exist and their count is 1
-        browser.fill("surname", "Colombo").pressButton("submit", function() {
+        browser.fill('surname', 'Colombo').pressButton('submit', function() {
           /** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
 
           // pressButton is Async.  Waits for the ajax call to complete...
