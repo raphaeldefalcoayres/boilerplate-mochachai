@@ -285,14 +285,16 @@ suite('Functional Tests', function() {
       test('submit "surname" : "Vespucci" - write your e2e test...', function(done) {
         // fill the form, and submit.
         // assert that status is OK 200
-        browser.assert.success();
-        // assert that the text inside the element 'span#name' is 'Amerigo'
-        browser.assert.text('span#name', 'Amerigo');
-        // assert that the text inside the element 'span#surname' is 'Vespucci'
-        browser.assert.text('span#surname', 'Vespucci');
-        // assert that the element(s) 'span#dates' exist and their count is 1
-        browser.assert.element('span#dates', 1);
-        done();
+        browser.fill('surname', 'Vespucci').pressButton('submit', function() {
+          browser.assert.success();
+          // assert that the text inside the element 'span#name' is 'Amerigo'
+          browser.assert.text('span#name', 'Amerigo');
+          // assert that the text inside the element 'span#surname' is 'Vespucci'
+          browser.assert.text('span#surname', 'Vespucci');
+          // assert that the element(s) 'span#dates' exist and their count is 1
+          browser.assert.element('span#dates', 1);
+          done();
+        });
       });
     });
   });
